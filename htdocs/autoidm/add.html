@@ -1,0 +1,327 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+	
+<head> 
+	<meta charset="utf-8"> 
+	<title>Nagios3 AutoIDM Extension</title>
+	<meta name="description" content="Nagios3 AutoIDM Extensio">
+	<!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-glyphicons.css" rel="stylesheet">
+	<link href="css/autoidm.css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+
+		<script type="text/javascript">
+
+
+	function delete_me(meme){
+		var temp=parseInt($('.single-number:last').find('span').prop('innerHTML'));
+		if (temp>1){
+			var d_form = $("#"+meme).closest('.single-form');
+			d_form.remove();
+		}
+			
+		
+    }; 
+
+jQuery(function($){
+    var $add_row = $('#add-row'),
+    	$delete_row = $('a[id*=delete-row]'),
+    	$add_host= $('#add-host'),
+    	$delete_host= $('#delete-host'),
+    	$add_subnet=$('#add-subnet'),
+    	$row = $('.single-form:last').clone(),
+    	$row0 = $('.single-number:last').clone(),
+        $row1 = $('.single-ip:last').clone(),
+        $row2 = $('.single-hostname:last').clone(),
+    	$row3 = $('.single-host-group:last').clone();
+    	
+    	$.ajax({
+		    url: 'nagios_com.py', // form action url
+		    type: 'POST', // form submit method get/post
+		    dataType: 'xml', // request type html/json/xml
+		    data: 'type=service-list',
+		    beforeSend: function() {
+		    },
+		    success: function(data) {
+		      $row.find('.single-host-group-value').empty();
+			  $(data).find('message').children().each(function() {
+			  	var my_opt = $(this);
+			  	$row.find('.single-host-group-value').append($('<option>', { 
+			        value: my_opt.text(),
+			        text : my_opt.text() 
+			    }))
+			  })
+		    }
+	    });
+    	
+    var $temp=0;
+
+      	
+    $add_row.click(function(){
+    	$row0.find('label').remove();
+    	$temp=(parseInt($row0.find('span').prop('innerHTML'))+1).toString();
+    	$row0.find('span').html($temp);    	
+    	$row1.find('label').remove();
+    	$row2.find('label').remove();
+    	$row3.find('label').remove();
+        $row.find('.single-number:first').find('.control-label').css("z-index", "15");             
+        $row.find('*[id*=delete-row]').attr('id','delete-row'+$temp);        
+        $row.find('span').html($temp);
+        $row.find('.single-number').find('label').css({ "margin-top": "-20", "z-index":"-1" });
+        $row.find('.single-ip').find('label').css({ "margin-top": "-20", "z-index":"-1" });
+        $row.find('.single-hostname').find('label').css({ "margin-top": "-20", "z-index":"-1" });
+        $row.find('.single-host-group').find('label').css({ "margin-top": "-20", "z-index":"-1" });
+        $row.clone().insertBefore( $('#single-host-buttons') );
+    });
+    
+    $add_host.click(function(){
+    	var post_data = "type=single&";
+    	var counter = 0
+    	$('.single-form').each(function(i, obj) {
+			var data1="ip-single"+i+"="+($(this).find(".single-ip-value").val());
+			var data2="hostname"+i+"="+($(this).find(".single-hostname-value").val());
+			var data3="host-group"+i+"="+($(this).find(".single-host-group-value").val());
+			post_data += data1+"&"+data2+"&"+data3+"&";
+			counter = i;
+			$(this).trigger('reset');   		
+		});    
+    	post_data += "counter="+counter.toString();
+	    $.ajax({
+	      url: 'nagios_com.py', // form action url
+	      type: 'POST', // form submit method get/post
+	      dataType: 'xml', // request type html/json/xml
+	      data: post_data,
+	      beforeSend: function() {
+	      	$('#loading-indicator').show();
+	      },
+	      success: function(data) {
+	        $('#loading-indicator').hide();      
+	        $("#get-result").html("<div class=\"alert alert-success\"><a href=\"#\" class=\"alert-link\"></a>"+jQuery(data).text()+"</div>");        
+	      },
+	      error: function(e) {
+	      	$('#loading-indicator').hide();
+	      	$("#get-result").html("<div class=\"alert alert-danger\"><a href=\"#\" class=\"alert-link\"></a>"+e.responseText+"</div>");       
+	      }
+	    });
+    	
+    });    
+
+    $delete_host.click(function(){
+    	var post_data = "type=del&";
+    	var counter = 0
+    	$('.single-form').each(function(i, obj) {
+			var data1="ip-single"+i+"="+($(this).find(".single-ip-value").val());
+			var data2="hostname"+i+"="+($(this).find(".single-hostname-value").val());
+			var data3="host-group"+i+"="+($(this).find(".single-host-group-value").val());
+			post_data += data1+"&"+data2+"&"+data3+"&";
+			counter = i;
+			$(this).trigger('reset');  		
+		});    
+    	post_data += "counter="+counter.toString();
+	    $.ajax({
+	      url: 'nagios_com.py', // form action url
+	      type: 'POST', // form submit method get/post
+	      dataType: 'xml', // request type html/json/xml
+	      data: post_data,
+	      beforeSend: function() {
+	      	$('#loading-indicator').show();
+	      },
+	      success: function(data) {
+	        $('#loading-indicator').hide();      
+	        $("#get-result").html("<div class=\"alert alert-success\"><a href=\"#\" class=\"alert-link\"></a>"+jQuery(data).text()+"</div>");        
+	      },
+	      error: function(e) {
+	      	$('#loading-indicator').hide();
+	      	$("#get-result").html("<div class=\"alert alert-danger\"><a href=\"#\" class=\"alert-link\"></a>"+e.responseText+"</div>");       
+	      }
+	    });
+    	
+    }); 
+    
+    $add_subnet.click(function(){
+    	var post_data = "type=subnet&";
+		var data0="type=subnet";
+		var data1="subnet_id="+document.getElementById("subnet_id").value;
+		var data2="subnet_name="+document.getElementById("subnet_name").value;
+		var data3="subnet_host-group="+document.getElementById("subnet_host-group").value;
+		var post_data = data0+"&"+data1+"&"+data2+"&"+data3;		
+		$('#subnet-form').trigger("reset");
+		
+
+	    $.ajax({
+	      url: 'nagios_com.py', // form action url
+	      type: 'POST', // form submit method get/post
+	      dataType: 'xml', // request type html/json/xml
+	      data: post_data,
+	      beforeSend: function() {
+	      	$('#loading-indicator').show();
+	      },
+	      success: function(data) { 
+	        $('#loading-indicator').hide();      
+	        $("#get-result").html("<div class=\"alert alert-success\"><a href=\"#\" class=\"alert-link\"></a>"+jQuery(data).text()+"</div>");        
+	      },
+	      error: function(e) {
+	      	$('#loading-indicator').hide();
+	      	$("#get-result").html("<div class=\"alert alert-danger\"><a href=\"#\" class=\"alert-link\"></a>"+e.responseText+"</div>");      
+	      }
+	    });
+    	
+    });       
+    
+    
+});
+
+$(document).ready(function() {
+  
+  $.ajax({
+    url: 'nagios_com.py', // form action url
+    type: 'POST', // form submit method get/post
+    dataType: 'xml', // request type html/json/xml
+    data: 'type=service-list',
+    beforeSend: function() {
+    },
+    success: function(data) {
+	  $(data).find('message').children().each(function() {
+	  	var my_opt = $(this);
+	  	$('.single-host-group-value').append('<option> '+my_opt.text()+ ' </option>')
+	  })
+    }
+    });
+
+});
+
+function parseXML(xml) {
+
+    var xml_string = jQuery(xml).text();  // (This doesn't work- returns tagless, unformatted text) 
+    alert(xml_string);
+   }
+        </script>
+</head>
+
+<body>
+
+
+	<div class="panel" style="max-width: 1270px;">
+    <div class="panel-heading" style="width:400px; margin-left:auto; margin-right:auto;"> <img src="images/autoidm_logo.png" alt="HTML tutorial" class="autoidm-logo"><h3>Monitoring Discovery Service</h3> </div>
+    <ul class="list-group list-group-flush"> 
+
+	<img src="images/ajax-loader.gif" id="loading-indicator" style="display:none" />
+
+	    	
+    <li class="list-group-item"> 
+    	
+		<form class="single-form form-inline" role="form" style="min-height: 100px; margin-bottom:-65px;">
+			
+			<div class="single-number form-group">
+				<label for="number" class="col-lg-8 control-label">#</label>
+				<div class="col-lg-8 form-control">
+					<a id="delete-row" class="btn btn-small" href="#" onclick='delete_me(this.id);'><i class="glyphicon glyphicon-remove"></i></a>
+					<span class="single-number-value ">1</span>
+				</div>
+			</div>
+
+			<div class="single-ip form-group">
+				<label for="ip" class="col-lg-8 control-label">IP Address</label>
+				<div class="col-lg-8">
+					<input type="text" class="single-ip-value form-control"  placeholder="IP Address" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
+				</div>
+			</div>
+			
+			<div class="single-hostname form-group">
+				<label for="hostname" class="col-lg-8 control-label">  Host Name</label>
+				<div class="col-lg-8">
+		  			<input type="text" class="single-hostname-value form-control"  placeholder="Host Name">
+				</div>
+		  	</div>
+		  	
+		   	<div class="single-host-group form-group">
+				<label for="host-group" class="col-lg-8 control-label">Host-Group</label>
+				<div class="col-lg-8">
+		  			<select class="single-host-group-value form-control">
+
+						<!--must put a placeholder -->
+				    </select>
+				</div>
+		  	</div>
+		  	
+		</form>
+<div class="clearfix"></div>
+<div id="single-host-buttons"class="btn-group pull-right" style="margin-top: 35px;">
+      				
+					<button id="add-host" type="button" class="btn btn-primary" name="add-host" value="Add host">Add Host(s)</button>
+					<button id="add-row" type="button"  class="btn btn-primary" name="add-row" value="Add row">Add Row</button>
+					<button id="delete-host" type="button" class="btn btn-primary" name="delete-host" value="Delete host">Delete Host(s)</button>
+</div>
+<div class="clearfix"></div>
+	
+	</li>
+	
+
+	<li class="list-group-item"> 
+		<form id="subnet-form" class="form-inline" role="form">
+			
+			
+			<div class="subnet-number form-group">
+				<label for="number" class="col-lg-8 control-label">#</label>
+				<div class="col-lg-8">
+					<span class="subnet-number-value form-control">-</span>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="subnet_id" class="col-lg-8 control-label">Host Range</label>
+				<div class="col-lg-8">
+					<input type="text" class="form-control" id="subnet_id" placeholder="SubnetID/Prefix" pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(\d|[1-2]\d|3[0-2]))$">
+				</div>
+			</div>
+		  
+			<div class="form-group">
+				<label for="subnet-name" class="col-lg-8 control-label">Subnet Name</label>
+				<div class="col-lg-8">
+					<input type="text" class="form-control" id="subnet_name" placeholder="Subnet Name">
+				</div>
+			</div>
+	  
+			<div class="form-group">
+				<label for="subnet_host-group" class="col-lg-8 control-label">Host-Group</label>
+				<div class="col-lg-8">
+					<select id="subnet_host-group" class="form-control" disabled>
+						<option>-</option>
+						<option>Asterisk servers</option>
+						<option>SIP CISCO phones</option>
+						<option>SIP GRANDSTREAM phones</option>
+						<option>Windows Host</option>
+						<option>Windows Server</option>
+						<option>NAS</option>
+						<option>VMWare Hypervisor</option>
+						<option>Mikrotik Router</option>
+						<option>Switch</option>
+						<option>Unix/Linux</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group pull-right">
+				<label for="button-label" class="col-lg-8 control-label"></label>
+				<div class="col-lg-offset-2 col-lg-8">
+					<button id="add-subnet" type="button" class="submit btn btn-primary">Add Subnet</button>
+				</div>
+			</div>
+			<div class="clearfix"></div>		  
+		</form>
+	</li>
+	<li class="list-group-item"> 
+	<div id="get-result">
+		
+	</div>
+	</li>
+		
+	</ul>
+	</div>
+</body>
+
+</html>

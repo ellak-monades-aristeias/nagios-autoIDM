@@ -1,0 +1,66 @@
+body{
+    #background-color:#D8D8D8;
+}
+
+.list-group-item{
+    #background-color:#D8D8D8;
+}
+.panel{
+
+    #background-color:#D8D8D8;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.panel-heading H3{
+
+    padding-top:10px;
+    padding-bottom:30px;
+    width:410px;
+    margin-left:130px;
+    margin-right:auto !important;
+    margin-top:-30px;
+    margin-bottom:50px;
+    #border-top:1px solid rgb(221,221,221);
+}
+.autoidm-logo{
+    background-image: url(../images/autoidm_logo.png);
+    background-repeat: no-repeat;
+    background-position: -320px -440px;
+    margin-left: -25px;
+    padding-left:120px;
+    height:170px;
+    width:500px;
+    
+}
+
+#single-host-buttons{
+    display:block;
+    margin-top:65px !important;
+    margin-right:15px !important;    
+}
+
+.single-form{
+    margin-bottom:-23px !important;
+    padding-bottom:0px !important;
+    min-height:10px !important;
+}
+
+.col-lg-8.form-control{
+
+    display:inline-block !important;
+    padding-left:0px !important;
+    padding-right:0px !important;
+    padding-bottom:0px !important;
+    padding-top:0px !important;
+}
+
+.col-lg-8.control-label{
+
+}
+
+#loading-indicator{
+    width:130px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}

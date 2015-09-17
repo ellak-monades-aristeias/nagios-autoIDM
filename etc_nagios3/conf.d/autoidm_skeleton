@@ -1,0 +1,15 @@
+define host{
+        use                     <host-template>         ; Name of host template to use
+                                                        ; This host definition will inherit all variables that are defined
+                                                        ; in (or inherited by) the linux-server host template definition.
+        host_name               <hostname.company>
+        alias                   <hostname.company>
+        address                 <ip>
+        hostgroups              <company_hostgroup>, <service_hostgroup>		;The group that Discovery Algorithm chose to register this host
+	}                                                                               ;plus the <company> hostgroup defined below
+
+define hostgroup{
+        hostgroup_name  <company>                ; The name of the hostgroup
+        alias           <company>                ; Long name of the group
+        }
+

@@ -1,0 +1,42 @@
+# Check-plugins PATH
+check_plugins_path = /usr/lib/nagios/plugins/
+
+# TCP Ports to check
+
+tcp-service: ftp port: 21 applies-to: "NAS"
+tcp-service: ssh port: 22 applies-to: "UNIX-Linux-boxes", "Routers", "Asterisk-servers"
+tcp-service: telnet port: 23 applies-to: "Switches", "SIP-GRANDSTREAM-devices"
+tcp-service: http port: 80 applies-to: "SIP-GRANDSTREAM-devices", "Switches", "VMware-Hypervisors", "NAS", "SIP-CISCO-devices", "Asterisk-servers"
+tcp-service: msrcp port: 135 applies-to: "Windows-Servers", "Windows-Hosts"
+tcp-service: netbios-ssn port: 139 applies-to: "NAS", "Windows-Servers", "Windows-Hosts"
+tcp-service: srvloc port: 427 applies-to: "VMware-Hypervisors"
+tcp-service: https port: 443 applies-to: "VMware-Hypervisors"
+tcp-service: microsoft-ds port: 445 applies-to: "NAS", "Windows-Servers", "Windows-Hosts"
+tcp-service: iss-realsecure-sensor port: 902 applies-to: "VMware-Hypervisors"
+tcp-service: callbook port: 2000 applies-to: "Routers"
+
+
+# UDP Ports to check
+
+udp-service: dns port: 53 applies-to: "Asterisk-servers", "Routers"
+udp-service: ntp port: 123 applies-to: "Windows-Servers", "Asterisk-servers"
+udp-service: sip port: 5060 applies-to: "SIP-GRANDSTREAM-devices", "SIP-CISCO-devices", "Asterisk-servers"
+
+
+# Which check should be performed for each service mentioned above. By default the check_tcp and check_udp tests are used
+-Service List Start-
+ftp: 
+ssh: 
+telnet: 
+http: 
+msrcp: 
+netbios-ssn:
+srvloc:
+https:
+microsoft-ds: 
+iss-realsecure-sensor: 
+callbook: 
+dns: check_dns -H 8.8.8.8 -s $HOSTADDRESS$ -t 1
+ntp: check_ntp -H $HOSTADDRESS$ -t 1
+sip: check_sip -u sip:12345@$HOSTADDRESS$
+-Service List End-
