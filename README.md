@@ -29,6 +29,10 @@ Screenshot:
 ![alt text](https://github.com/ellak-monades-aristeias/nagios-autoIDM/blob/master/misc/Screenshot.png "Screenshot")
    [Wiki]: <https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki>
 
+----------------------------------
+
+###ACKNOWLEDGEMENT
+This project is supported by the Greek Free/Open Source Software Society (GFOSS)
 
 ----------------------------------
 Copyright 2015 KOSTAS GIOTIS
