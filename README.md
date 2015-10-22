@@ -39,6 +39,17 @@ Screenshot:
 ![alt text](https://github.com/ellak-monades-aristeias/nagios-autoIDM/blob/master/misc/Screenshot.png "Screenshot")
    [Wiki]: <https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki>
 
+
+
+Παραδοτέα Έργου:
+--------------
+
+| Ανάπτυξη Περιβάλλοντος Εργασίας – 1ο Παραδοτέο  | https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Setting-up-the-environment |
+|---|---|
+| **Τεκμηρίωση – 2ο Παραδοτέο**  |**Installation Guide:** https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Installation-Guide **Usage Guide:** https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Usage-Guide
+  |
+  
+  
 ----------------------------------
 
 ###ACKNOWLEDGEMENT
