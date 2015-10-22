@@ -24,6 +24,15 @@ Currently supported devices are:
 
 You can find more information, as well as step-by-step guide for the installation of autoIDM extension in our [Wiki]
 
+Specifically, for:
+* **Users:**  
+  Users kai find detailed usage guidelines in [this](https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Usage-Guide#autoidm-usage-guidelines) Wiki link
+
+* **Administrators/Developers/Contributors:**
+  To further configure, or extend the functionality of AutoIDM regarding the supported network devices and service-tests, administrators and Developers/Contributors can start with [this](https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Usage-Guide#autoidm-extension-configuration-options) link
+  New feature requests or issues with the existing implementation can be submitted as _Issues_ in our github project page
+  
+
 Screenshot:
 --------------
 ![alt text](https://github.com/ellak-monades-aristeias/nagios-autoIDM/blob/master/misc/Screenshot.png "Screenshot")
