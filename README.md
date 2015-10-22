@@ -47,4 +47,4 @@ This project is supported by the Greek Free/Open Source Software Society (GFOSS)
 ----------------------------------
 Copyright 2015 KOSTAS GIOTIS
 
-Licensed under the EUPL, Version 1.1 or
+Licensed under the EUPL, Version 1.1
