@@ -29,7 +29,8 @@ Specifically, for:
   Users kai find detailed usage guidelines in [this](https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Usage-Guide#autoidm-usage-guidelines) Wiki link
 
 * **Administrators/Developers/Contributors:**
-  To further configure, or extend the functionality of AutoIDM regarding the supported network devices and service-tests, administrators and Developers/Contributors can start with [this](https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Usage-Guide#autoidm-extension-configuration-options) link
+  To further configure, or extend the functionality of AutoIDM regarding the supported network devices and service-tests, administrators and Developers/Contributors can start with [this](https://github.com/ellak-monades-aristeias/nagios-autoIDM/wiki/Usage-Guide#autoidm-extension-configuration-options) link.  
+
   New feature requests or issues with the existing implementation can be submitted as _Issues_ in our github project page
   
 
